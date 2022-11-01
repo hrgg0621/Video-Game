@@ -64,49 +64,8 @@ class Player(Sprite):
             self.acc.y = -5
         if keys[pg.K_s]:
             self.acc.y = 5
-    def collide_with_walls(self, dir):
-        #checks to see if the player is colliding with a platform on the x axis
-        if dir == 'x':
-            hits = pg.sprite.spritecollide(self, all_platforms, False)
-            if hits:
-                self.colliding = True
-                self.hitx = hits[0].rect.centerx
-                self.hity = hits[0].rect.centery
-                xdiff = abs(self.rect.centerx - hits[0].rect.centerx)
-                ydiff = abs(self.rect.centery - hits[0].rect.centery)
-                # print("xdif " + str(xdiff))
-                # print("ydif " + str(ydiff))
-                if hits[0].rect.centerx > self.rect.centerx and xdiff > ydiff:
-                    self.pos.x = hits[0].rect.left - self.rect.width/2
-                if hits[0].rect.centerx < self.rect.centerx and xdiff > ydiff:
-                    self.pos.x = hits[0].rect.right + self.rect.width/2
-                self.vel.x = 0
-                self.centerx = self.pos.x
-                self.hitx = hits[0].rect.centerx
-                self.hity = hits[0].rect.centery
-            else:
-                self.colliding = False
+   
 
-        #checks to see if the payer is colliding on the y axis
-        if dir == 'y':
-            hits = pg.sprite.spritecollide(self, all_platforms, False)
-            if hits:
-                self.colliding = True
-                xdiff = abs(self.rect.centerx - hits[0].rect.centerx)
-                ydiff = abs(self.rect.centery - hits[0].rect.centery)
-                # print("xdif " + str(xdiff))
-                # print("ydif " + str(ydiff))
-
-                if hits[0].rect.centery > self.rect.centery and xdiff < ydiff:
-                    self.pos.y = hits[0].rect.top - self.rect.height/2
-                if hits[0].rect.centery < self.rect.centery and xdiff < ydiff:
-                    self.pos.y = hits[0].rect.bottom + self.rect.height/2
-                self.vel.y = 0
-                self.centery = self.pos.y
-                self.hitx = hits[0].rect.centerx
-                self.hity = hits[0].rect.centery
-            else:
-                self.colliding = False
     
 
  
@@ -119,9 +78,9 @@ class Player(Sprite):
         self.vel += self.acc
         self.pos += self.vel + 0.5 * self.acc
         self.rect.centerx = self.pos.x
-        self.collide_with_walls('x')
+     
         self.rect.centery = self.pos.y
-        self.collide_with_walls('y')
+        
         self.rect.center = self.pos
         self.hitx = self.hitx
         self.hity = self.hity
@@ -218,19 +177,15 @@ player = Player()
 #plat1 = Platform(75, 300, 75 ,75)
 #instanciate the cactus class in a random area of the screen
 
-c = Cactus(randint(0,WIDTH),randint(0,HEIGHT), 30,30)
+
 
 # mob = Mob(25, 57, 25, 25)
 
 # add instances to groups
 all_sprites.add(player)
-#all_sprites.add(plat)
-#all_sprites.add(plat1)
-all_sprites.add(c)
-all_platforms.add(c)
-# all_sprites.add(mob)
-#all_platforms.add(plat)
-#all_platforms.add(plat1)
+
+
+
 
 for i in range(8):
     # instantiate mob class repeatedly
@@ -238,6 +193,10 @@ for i in range(8):
     all_sprites.add(m)
     mobs.add(m)
 # print(mobs)
+for i in range(4):
+    c = Cactus(randint(0, WIDTH), (randint(9, HEIGHT)), 30, 30)
+    all_sprites.add(c)
+    all_platforms.add(c)
 # Game loop
 
     
