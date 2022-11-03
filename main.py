@@ -2,6 +2,7 @@
 
 # import libraries and modules
 # from platform import platform
+from platform import platform
 import pygame as pg
 from pygame.sprite import Sprite
 import random
@@ -187,13 +188,13 @@ all_sprites.add(player)
 
 
 
-for i in range(8):
+for i in range(16):
     # instantiate mob class repeatedly
     m = Mob(randint(0, WIDTH), randint(0,HEIGHT), 25, 25, (randint(0,255), randint(0,255) , randint(0,255)))
     all_sprites.add(m)
     mobs.add(m)
 # print(mobs)
-for i in range(4):
+for i in range(8):
     c = Cactus(randint(0, WIDTH), (randint(9, HEIGHT)), 30, 30)
     all_sprites.add(c)
     all_platforms.add(c)
